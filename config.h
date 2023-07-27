@@ -57,12 +57,13 @@ static const char *tags[] = {
     "", // tag:0  key:1  desc:terminal1
     "", // tag:1  key:2  desc:terminal2
     "", // tag:2  key:3  desc:terminal3
-    "", // tag:4  key:9  desc:edit
+    "", // tag:4  key:   desc:edit
     "", // tag:5  key:c  desc:chrome
-    "", // tag:6  key:  desc:music
+    "", // tag:6  key:9  desc:music
     "", // tag:7  key:0  desc:qq
     "﬐", // tag:8  key:w  desc:wechat
     "", // tag:9  key:l  desc:wxwork
+    "", // tag:10 key:y  desc:wxwork
 };
 
 /* 自定义窗口显示规则 */
@@ -188,18 +189,18 @@ static Key keys[] = {
     { MODKEY|ShiftMask,    XK_l,            exchange_client,  {.i = RIGHT } },           /* super shift l      | 二维交换窗口 (仅平铺) */
 
     /* spawn + SHCMD 执行对应命令(已下部分建议完全自己重新定义) */
-    { MODKEY,              XK_s,      togglescratch, SHCMD("st -t scratchpad -c float") },                      /* super s          | 打开scratch终端        */
-    { MODKEY,              XK_Return, spawn, SHCMD("st") },                                                     /* super enter      | 打开st终端             */
-    { MODKEY,              XK_minus,  spawn, SHCMD("st -c FG") },                                               /* super -          | 打开全局st终端         */
-    { MODKEY,              XK_space,  spawn, SHCMD("st -c float") },                                            /* super space      | 打开浮动st终端         */
-    { MODKEY,              XK_F1,     spawn, SHCMD("killall pcmanfm || pcmanfm") },                             /* super F1         | 打开/关闭pcmanfm       */
-    { MODKEY,              XK_d,      spawn, SHCMD("rofi -show run") },                                         /* super d          | rofi: 执行run          */
-    { MODKEY,              XK_p,      spawn, SHCMD("$DWM/scripts/rofi.sh") },                                       /* super p          | rofi: 执行自定义脚本   */
-    { MODKEY,              XK_n,      spawn, SHCMD("$DWM/scripts/blurlock.sh") },                                   /* super n          | 锁定屏幕               */
-    { MODKEY|ShiftMask,    XK_Up,     spawn, SHCMD("$DWM/scripts/set_vol.sh up") },                                 /* super shift up   | 音量加                 */
-    { MODKEY|ShiftMask,    XK_Down,   spawn, SHCMD("$DWM/scripts/set_vol.sh down") },                               /* super shift down | 音量减                 */
-    { MODKEY|ShiftMask,    XK_a,      spawn, SHCMD("flameshot gui -c -p ~/Pictures/screenshots") },             /* super shift a    | 截图                   */
-    { MODKEY|ShiftMask,    XK_q,      spawn, SHCMD("kill -9 $(xprop | grep _NET_WM_PID | awk '{print $3}')") }, /* super shift q    | 选中某个窗口并强制kill */
+    { MODKEY,              XK_s,      togglescratch, SHCMD("tabbed -n scratchpad -c -r 2 st -w ''") },                      /* super s          | 打开scratch终端        */
+    { MODKEY,              XK_Return, spawn, SHCMD("tabbed -n st -C tabbed -c -r 2 st -w ''") },                            /* super enter      | 用tabbed打开st终端     */
+    { MODKEY,              XK_minus,  spawn, SHCMD("tabbed -n st -C FG -c -r 2 st -w ''") },                                /* super -          | 用tabbed打开全局st终端 */
+    { MODKEY,              XK_space,  spawn, SHCMD("tabbed -n st -C float -c -r 2 st -w ''") },                             /* super space      | 用tabbed打开浮动st终端 */
+    { MODKEY,              XK_F1,     spawn, SHCMD("killall pcmanfm || pcmanfm") },                                         /* super F1         | 打开/关闭pcmanfm       */
+    { MODKEY,              XK_d,      spawn, SHCMD("rofi -show run") },                                                     /* super d          | rofi: 执行run          */
+    { MODKEY,              XK_p,      spawn, SHCMD("$DWM/scripts/rofi.sh") },                                               /* super p          | rofi: 执行自定义脚本   */
+    { MODKEY,              XK_n,      spawn, SHCMD("$DWM/scripts/blurlock.sh") },                                           /* super n          | 锁定屏幕               */
+    { MODKEY|ShiftMask,    XK_Up,     spawn, SHCMD("$DWM/scripts/set_vol.sh up") },                                         /* super shift up   | 音量加                 */
+    { MODKEY|ShiftMask,    XK_Down,   spawn, SHCMD("$DWM/scripts/set_vol.sh down") },                                       /* super shift down | 音量减                 */
+    { MODKEY|ShiftMask,    XK_a,      spawn, SHCMD("flameshot gui -c -p ~/Pictures/screenshots") },                         /* super shift a    | 截图                   */
+    { MODKEY|ShiftMask,    XK_q,      spawn, SHCMD("kill -9 $(xprop | grep _NET_WM_PID | awk '{print $3}')") },             /* super shift q    | 选中某个窗口并强制kill */
 
     /* super key : 跳转到对应tag (可附加一条命令 若目标目录无窗口，则执行该命令) */
     /* super shift key : 将聚焦窗口移动到对应tag */
@@ -207,14 +208,14 @@ static Key keys[] = {
     TAGKEYS(XK_1, 0, 0)
     TAGKEYS(XK_2, 1, 0)
     TAGKEYS(XK_3, 2, 0)
-    TAGKEYS(XK_9, 6, "qqmusic")
     TAGKEYS(XK_c, 4, "google-chrome-stable")
     TAGKEYS(XK_m, 4, "microsoft-edge-stable")
    /* TAGKEYS(XK_m, 5, "~/scripts/music_player.sh")*/
+    TAGKEYS(XK_9, 6, "qqmusic")
     TAGKEYS(XK_0, 6, "linuxqq")
     TAGKEYS(XK_w, 7, "/opt/apps/com.qq.weixin.deepin/files/run.sh")
-    TAGKEYS(XK_y, 8, "/opt/apps/com.qq.weixin.work.deepin/files/run.sh")
     TAGKEYS(XK_r, 8, "remmina")
+    TAGKEYS(XK_y, 9, "pycharm-eap") 
 };
 
 static Button buttons[] = {
